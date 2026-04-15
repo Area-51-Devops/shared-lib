@@ -121,6 +121,10 @@ jobs:
           scope: '@area-51-devops'
 
       # -------- INSTALL (moved before Sonar so scan has full context) ---
+      # PREREQUISITE: @area-51-devops/shared package visibility must be set to
+      # "Internal" in GitHub Packages settings so that github.token from any
+      # repo in the org can read it without a PAT.
+      # Org → Packages → shared → Package settings → Change visibility → Internal
       - name: Install dependencies
         run: npm ci
         env:
