@@ -130,6 +130,21 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ github.token }}
 
+      - name: Auto-fix package-lock.json
+        # Only run on push branches, not PRs
+        if: github.event_name == 'push'
+        run: |
+          if [ -n "$(git status --porcelain package-lock.json)" ]; then
+            echo "Lockfile was updated by npm install. Committing to repository..."
+            git config --global user.name "github-actions[bot]"
+            git config --global user.email "github-actions[bot]@users.noreply.github.com"
+            git add package-lock.json
+            git commit -m "chore: auto-sync package-lock.json [skip ci]"
+            git push
+          else
+            echo "Lockfile is fully synced."
+          fi
+
       # -------- TEST ----------------------------------------------------
       - name: Run Tests
         run: npm test
