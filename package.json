@@ -1,0 +1,19 @@
+{
+  "name": "@area-51-devops/shared",
+  "version": "1.0.0",
+  "main": "index.js",
+  "files": [
+    "*.js"
+  ],
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "dependencies": {
+    "jsonwebtoken": "^9.0.2",
+    "pino": "^8.15.0",
+    "uuid": "^9.0.1"
+  }
+}
