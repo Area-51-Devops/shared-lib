@@ -1,0 +1,29 @@
+name: Publish Shared Library
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'services/shared/**'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@Area-51-Devops'
+
+      - name: Install dependencies
+        working-directory: services/shared
+        run: npm ci || npm install
+
+      - name: Publish package
+        working-directory: services/shared
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
