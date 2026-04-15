@@ -63,8 +63,9 @@ jobs:
     runs-on: ubuntu-latest
 
     # Required so github.token can pull @area-51-devops/shared from GitHub Packages
+    # contents: write is required for the auto-sync lockfile step to push commits
     permissions:
-      contents: read
+      contents: write
       packages: read
 
     defaults:
