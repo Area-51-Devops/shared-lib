@@ -126,7 +126,7 @@ jobs:
       # repo in the org can read it without a PAT.
       # Org → Packages → shared → Package settings → Change visibility → Internal
       - name: Install dependencies
-        run: npm ci
+        run: npm ci || npm install
         env:
           NODE_AUTH_TOKEN: ${{ github.token }}
 
