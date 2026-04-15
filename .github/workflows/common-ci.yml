@@ -200,11 +200,13 @@ jobs:
           if [ -z "$DOCKERFILE" ]; then
             DOCKERFILE="${{ inputs.image_name }}/Dockerfile"
           fi
+          echo "${{ github.token }}" > npm_token.txt
           docker build \
             -f "$DOCKERFILE" \
-            --build-arg NODE_AUTH_TOKEN=${{ github.token }} \
+            --secret id=npm_token,src=npm_token.txt \
             -t ${{ secrets.DOCKER_USERNAME }}/${{ inputs.service-name }}:${{ steps.image_tag.outputs.tag }} \
             .
+          rm -f npm_token.txt
 
       # -------- TRIVY (runs BEFORE push — a failure blocks the push) -----
       - name: Trivy Security Scan
