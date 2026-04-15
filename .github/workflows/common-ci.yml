@@ -172,7 +172,7 @@ jobs:
 
       # -------- TRIVY (runs BEFORE push — a failure blocks the push) -----
       - name: Trivy Security Scan
-        uses: aquasecurity/trivy-action@0.28.0
+        uses: aquasecurity/trivy-action@master
         with:
           image-ref: '${{ secrets.DOCKER_USERNAME }}/${{ inputs.service-name }}:${{ steps.image_tag.outputs.tag }}'
           format: table
